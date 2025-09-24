@@ -14,10 +14,11 @@
     html, body {
       width: 100%;
       height: 100%;
-      background: #fff; /* 여백은 흰색 */
+      background: #fff;
       overflow: hidden;
     }
 
+    /* 안전한 화면 높이 계산 */
     :root {
       --vh: 100vh;
     }
@@ -27,17 +28,16 @@
       width: 100%;
       height: calc(var(--vh));
       overflow: hidden;
-      background: #fff; /* 이미지가 다 안 찰 때 여백 흰색 */
     }
 
     .image-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* 이미지 전체 보이기 (잘림 없음) */
-      background: #fff;
+      object-fit: cover; /* 화면 꽉 채움 */
       display: block;
       user-select: none;
       -webkit-user-drag: none;
+      background: #fff;
     }
 
     .box {
@@ -92,3 +92,32 @@
       height: 12.5%;
       background: url('icon_youtube.png') no-repeat center/contain;
     }
+
+    .box:active,
+    .box:focus {
+      transform: scale(1.1);
+      outline: 2px dashed transparent;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="image-wrap">
+    <img src="일등.gif" alt="탁송대리 배경 이미지">
+
+    <!-- 전화 걸기 버튼 -->
+    <a class="box box1" href="tel:15335858" aria-label="로드탁송 전화걸기"></a>
+    <a class="box box2" href="tel:15335858" aria-label="대리운전 전화걸기"></a>
+  </div>
+
+  <script>
+    // 모바일에서 안전하게 화면 높이 맞추기
+    function setVh() {
+      document.documentElement.style.setProperty('--vh', window.innerHeight + 'px');
+    }
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', setVh);
+    setVh();
+  </script>
+</body>
+</html>
