@@ -18,17 +18,22 @@
       overflow: hidden;
     }
 
+    /* 안전한 화면 높이 계산 */
+    :root {
+      --vh: 100vh;
+    }
+
     .image-wrap {
       position: relative;
       width: 100%;
-      height: 100vh; /* 모바일 브라우저 UI에 덜 영향을 받음 */
+      height: calc(var(--vh));
       overflow: hidden;
     }
 
     .image-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* 잘림 없이 전체 보이도록 설정 */
+      object-fit: cover; /* 화면 꽉 채움 */
       display: block;
       user-select: none;
       -webkit-user-drag: none;
@@ -103,12 +108,16 @@
     <!-- 전화 걸기 버튼 -->
     <a class="box box1" href="tel:15335858" aria-label="로드탁송 전화걸기"></a>
     <a class="box box2" href="tel:15335858" aria-label="대리운전 전화걸기"></a>
-
-    <!-- 나머지 버튼도 필요시 추가 -->
-    <!--
-    <a class="box box3" href="..."></a>
-    <a class="box box4" href="..."></a>
-    -->
   </div>
+
+  <script>
+    // 모바일에서 안전하게 화면 높이 맞추기
+    function setVh() {
+      document.documentElement.style.setProperty('--vh', window.innerHeight + 'px');
+    }
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', setVh);
+    setVh();
+  </script>
 </body>
 </html>
